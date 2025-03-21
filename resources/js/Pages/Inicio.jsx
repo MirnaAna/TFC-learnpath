@@ -12,7 +12,7 @@ export default function Inicio(props) {
         console.log("hoaaaaaaaaaaa");
         if (formacionSeleccionada) {
             Inertia.visit(
-                `/detalles-formacion/${formacionSeleccionada.toLocaleLowerCase()}`
+                `/detalles-formacion/${formacionSeleccionada.toLocaleUpperCase()}`
             );
         } else {
             alert("Debes seleccionar una formación");

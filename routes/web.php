@@ -39,6 +39,6 @@ Route::middleware('auth')->group(function () {
 
 //ruta para detallesFormacion
 Route::get('/detalles-formacion/{formacion}', function ($formacion) {
-    return Inertia::render('DetallesFormacion',['formacion' => $formacion]);
+    return Inertia::render('DetallesFormacion',['nombreFormacion' => $formacion]);
 });
 require __DIR__.'/auth.php';
