@@ -1,5 +1,6 @@
 <?php
-
+use App\Http\Controllers\FormacionController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -37,8 +38,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-//ruta para detallesFormacion
-Route::get('/detalles-formacion/{formacion}', function ($formacion) {
-    return Inertia::render('DetallesFormacion',['nombreFormacion' => $formacion]);
+//ruta para cerrar sesion
+Route::middleware('auth')->group(function () {
+    Route::get('/logout', [AuthenticatedSessionController::class, 'destroy']);
 });
+Route::get('/detalles-formacion/{formacion}', [FormacionController::class, 'mostrarDetalles']);
 require __DIR__.'/auth.php';

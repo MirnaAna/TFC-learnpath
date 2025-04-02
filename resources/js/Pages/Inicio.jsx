@@ -34,7 +34,7 @@ export default function Inicio(props) {
                             setFormacionSeleccionada(e.target.value)
                         }
                     >
-                        <option value="" disabled hidden selected>
+                        <option value="" disabled hidden>
                             --selecciona una formacion--
                         </option>
                         <option value="ASIR">ASIR</option>
@@ -48,15 +48,22 @@ export default function Inicio(props) {
                     >
                         Ok
                     </button>
-                    <button className="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150 ">
-                        iniciar sesion
-                    </button>
-                    <div className="mt-10">
+                </div>
+                <div className="column small-12">
+                    <div className=" row mt-10">
                         <Link
                             href="/register"
                             className="bg-yellow-400 text-gray-900 px-6 py-3 rounded-xl shadow-lg hover:bg-yellow-500 hover:scale-105 transition-transform font-semibold text-lg"
                         >
                             registrar
+                        </Link>
+                    </div>
+                    <div className="row mt-10">
+                        <Link
+                            href="/login"
+                            className="bg-yellow-400 text-gray-900 px-6 py-3 rounded-xl shadow-lg hover:bg-yellow-500 hover:scale-105 transition-transform font-semibold text-lg"
+                        >
+                            Iniciar sesion
                         </Link>
                     </div>
                 </div>
