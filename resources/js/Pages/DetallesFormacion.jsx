@@ -29,11 +29,18 @@ export default function DetallesFormacion() {
                     <h2 className="text-3xl font-semibold mb-4 text-purple-700">
                         ¿Qué es {nombreFormacion}?
                     </h2>
-                    <p className="text-lg">
+                    <p className="text-lg mb-8">
                         {nombreFormacion} es una formación profesional enfocada
                         en la administración de servidores, redes,
-                        ciberseguridad y visualizaciónes...
+                        ciberseguridad y visualizaciones...
                     </p>
+                    <Link
+                        href="/login"
+                        title="Con Sesion Requerida"
+                        className="bg-yellow-400 text-gray-900 px-4 py-3 rounded-xl shadow-lg hover:bg-purple-400 hover:scale-105 transition-transform"
+                    >
+                        Mi progreso
+                    </Link>
                 </section>
                 <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 max-w-5xl w-full">
                     {/*Tarjeta de contenido*/}

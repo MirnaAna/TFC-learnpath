@@ -49,24 +49,6 @@ export default function Inicio(props) {
                         Ok
                     </button>
                 </div>
-                <div className="column small-12">
-                    <div className=" row mt-10">
-                        <Link
-                            href="/register"
-                            className="bg-yellow-400 text-gray-900 px-6 py-3 rounded-xl shadow-lg hover:bg-yellow-500 hover:scale-105 transition-transform font-semibold text-lg"
-                        >
-                            registrar
-                        </Link>
-                    </div>
-                    <div className="row mt-10">
-                        <Link
-                            href="/login"
-                            className="bg-yellow-400 text-gray-900 px-6 py-3 rounded-xl shadow-lg hover:bg-yellow-500 hover:scale-105 transition-transform font-semibold text-lg"
-                        >
-                            Iniciar sesion
-                        </Link>
-                    </div>
-                </div>
             </div>
         </>
     );
