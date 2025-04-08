@@ -9,8 +9,14 @@ export default function Explorador() {
                 <div className="container mx-auto flex justify-between items-center px-6">
                     {/* Logo */}
                     <div className="flex items-center space-x-3">
-                        <img src={Logo} alt="LearnPath Logo" className="w-20" />
-                        <span className="text-xl font-semibold text-gray-700"></span>
+                        <Link href="/">
+                            <img
+                                src={Logo}
+                                alt="LearnPath Logo"
+                                className="w-20"
+                            />
+                            <span className="text-xl font-semibold text-gray-700"></span>
+                        </Link>
                     </div>
                     {/* Navigation */}
                     <div className="flex items-center space-x-3">
