@@ -28,18 +28,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     },
 }));
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-    createData("Contenido Aprendido", 159, 6.0, 24, 4.0),
-    createData("Areas a Mejorar", 237, 9.0, 37, 4.3),
-    createData("Conenido por Aprender", 262, 16.0, 24, 6.0),
-    createData("Estado", 305, 3.7, 67, 4.3),
-];
-
-export default function CustomizedTables() {
+export default function TablaProgreso({ asignaturas }) {
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -56,19 +45,19 @@ export default function CustomizedTables() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row) => (
-                        <StyledTableRow key={row.name}>
+                    {asignaturas.map((asig) => (
+                        <StyledTableRow key={asig.id}>
                             <StyledTableCell component="th" scope="row">
-                                {row.name}
+                                {asig.nombre}
                             </StyledTableCell>
                             <StyledTableCell align="right">
-                                {row.calories}
+                                aaaa
                             </StyledTableCell>
                             <StyledTableCell align="right">
-                                {row.fat}
+                                bbbb
                             </StyledTableCell>
                             <StyledTableCell align="right">
-                                {row.carbs}
+                                cccc
                             </StyledTableCell>
                         </StyledTableRow>
                     ))}

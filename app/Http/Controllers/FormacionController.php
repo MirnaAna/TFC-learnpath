@@ -18,9 +18,33 @@ class FormacionController extends Controller
           ->where('asignaturas_formacion.id_formacion',$formacionSelecionada->id)
           ->select('asignaturas.*')
           ->get();
+          //obtener las salidas profesionales asociadas
+          $salidasProfesionales = DB::table('salidas_profesionales')
+          ->where('id_formacion', $formacionSelecionada->id)
+          ->get();
           return Inertia::render('DetallesFormacion', [
               'formacion' => $formacionSelecionada,
-            'asignaturas' => $asignaturas 
+            'asignaturas' => $asignaturas,
+            'salidasProfesionales' => $salidasProfesionales
           ]);
+      }
+      
+      //funcion para mostrar el dashboard
+      function mostraDashboard(){
+        //obteneos los datos de la formacion 
+        $formacionSelecionada = DB::table('formaciones')->where('abreviatura', 'ASIR')->first();
+        //
+        $formaciones= DB::table('formaciones')->get();
+       
+        //seleccionamos asignaturas relacionadas a la formacion
+        $asignaturas =  DB::table('asignaturas_formacion')
+          ->join('asignaturas', 'asignaturas_formacion.id_asignatura', '=','asignaturas.id')
+          ->where('asignaturas_formacion.id_formacion',$formacionSelecionada->id)
+          ->select('asignaturas.*')
+          ->get();
+        return Inertia::render('Dashboard', [
+          'formaciones' => $formaciones,
+          'asignaturas' => $asignaturas
+        ]);
       }
 }

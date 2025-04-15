@@ -11,7 +11,7 @@ import {
 } from "react-icons/fa";
 
 export default function DetallesFormacion() {
-    const { formacion, asignaturas } = usePage().props;
+    const { formacion, asignaturas, salidasProfesionales } = usePage().props;
     useEffect(() => {
         console.log(asignaturas);
     }, [formacion, asignaturas]);
@@ -63,11 +63,11 @@ export default function DetallesFormacion() {
                     </h2>
                     {/*Lista de posibles salidas laborales para los graduados*/}
                     <ul className="text-lg text-left space-y-2">
-                        <li>&#10004;Administrador de sistemas y redes.</li>
-                        <li>&#10004;Técnico de ciberseguridad.</li>
-                        <li>&#10004;Especialista en Cloud Computing.</li>
-                        <li>&#10004;Soporte técnico y Help Desk.</li>
-                        <li>&#10004;Consultor en infraestructura IT</li>
+                        {salidasProfesionales.map((salidasProfesionales) => (
+                            <li key={salidasProfesionales.id}>
+                                &#10004; {salidasProfesionales.nombre}
+                            </li>
+                        ))}
                     </ul>
                 </section>
                 <div className="mt-10">

@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 /*
@@ -19,6 +20,7 @@ use Inertia\Inertia;
 //pagina de inicio
 Route::get('/', function () {
     return Inertia::render('Inicio', [
+        'formaciones' => DB::table('formaciones')->get(),
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
@@ -26,10 +28,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-//})->middleware(['auth', 'verified'])->name('dashboard');
-});
+Route::get('/dashboard', [FormacionController::class, 'mostraDashboard']);
 
 //ruta para el login
 Route::middleware('auth')->group(function () {
