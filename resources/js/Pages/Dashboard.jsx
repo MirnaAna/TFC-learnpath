@@ -2,11 +2,10 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import TablaProgreso from "@/Components/TablaProgreso";
 import Header from "../Components/Header";
 import { Link, Head, usePage } from "@inertiajs/react";
-import SelectFormacion from "@/Components/SelectFormacion";
 
 export default function Dashboard() {
     const nombreUsuario = usePage().props.auth.user.name;
-    const { asignaturas, formaciones } = usePage().props;
+    const { asignaturas, formaciones, asignaturasProgreso } = usePage().props;
     return (
         /*<AuthenticatedLayout
             auth={props.auth}
@@ -25,10 +24,12 @@ export default function Dashboard() {
                         </div>
                     </div>
                 </div>
-                <SelectFormacion formaciones={formaciones} />
             </div>
             <div className=" justify-center px-8 py-4">
-                <TablaProgreso asignaturas={asignaturas} />
+                <TablaProgreso
+                    asignaturasProgreso={asignaturasProgreso}
+                    formaciones={formaciones}
+                />
             </div>
         </>
         //</AuthenticatedLayout>

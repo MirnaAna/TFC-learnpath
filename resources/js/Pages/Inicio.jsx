@@ -9,7 +9,9 @@ export default function Inicio() {
             <Head title="Inicio" />
             <Header></Header>
             {/* Contenedor para centrar el label y el select */}
-            <SelectFormacion formaciones={formaciones} />
+            <div className="flex items-center justify-center min-h-screen bg-gray-50">
+                <SelectFormacion formaciones={formaciones} />
+            </div>
         </>
     );
 }

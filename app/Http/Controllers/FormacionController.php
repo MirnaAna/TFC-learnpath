@@ -42,9 +42,22 @@ class FormacionController extends Controller
           ->where('asignaturas_formacion.id_formacion',$formacionSelecionada->id)
           ->select('asignaturas.*')
           ->get();
+          // $asignaturasAprendidas=DB::table('asignaturas')
+          // ->join('estado_progreso', 'asignaturas.id', '=','asignatura.id')
+          // ->where()
+          $asignaturasProgreso= DB:: table('asignaturas')
+          ->join('estado_progreso', 'estado_progreso.id', '=','asignaturas.id_estado')
+          ->select( 'asignaturas.id as id_asignatura',
+           'asignaturas.nombre as nombre_asignatura',
+           'asignaturas.descripcion as descripcion_asignatura',
+           'estado_progreso.id as id_estado',
+           'estado_progreso.nombre as nombre_estado')
+          ->get();
+          
         return Inertia::render('Dashboard', [
           'formaciones' => $formaciones,
-          'asignaturas' => $asignaturas
+          'asignaturas' => $asignaturas,
+          'asignaturasProgreso' => $asignaturasProgreso
         ]);
       }
 }
