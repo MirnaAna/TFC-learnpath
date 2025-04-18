@@ -30,6 +30,9 @@ Route::get('/', function () {
 
 Route::get('/dashboard', [FormacionController::class, 'mostraDashboard']);
 
+//ruta para gestionar cambio de estado
+Route::put('/asignaturas/{idAsignatura}/cambiar-estado', [FormacionController::class, 'cambiarEstado']);
+
 //ruta para el login
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

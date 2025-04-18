@@ -51,13 +51,34 @@ class FormacionController extends Controller
            'asignaturas.nombre as nombre_asignatura',
            'asignaturas.descripcion as descripcion_asignatura',
            'estado_progreso.id as id_estado',
-           'estado_progreso.nombre as nombre_estado')
+           'estado_progreso.nombre as nombre_estado',
+           'estado_progreso.updated_at as actualizado')
           ->get();
-          
+          //que me devuelva todos los esatdos
+          $estados = DB::table('estado_progreso')
+          ->get();
+
         return Inertia::render('Dashboard', [
           'formaciones' => $formaciones,
           'asignaturas' => $asignaturas,
-          'asignaturasProgreso' => $asignaturasProgreso
+          'asignaturasProgreso' => $asignaturasProgreso,
+          'estados' => $estados
         ]);
+      }
+
+      /**
+       * funcion para
+       */
+      function cambiarEstado(Request $request, $idAsignatura){
+        //obtenemos el id de estado
+        $idEstado= DB::table('estado_progreso')
+        ->where('nombre', $request->estado)
+        ->first()->id;
+
+        //actualizamos en estado
+        DB::table('asignaturas')
+          ->where('id', $idAsignatura)
+          ->update(['id_estado' =>$idEstado]);
+        return redirect()->back()->with('mensaje', 'Estado Actualizado');
       }
 }

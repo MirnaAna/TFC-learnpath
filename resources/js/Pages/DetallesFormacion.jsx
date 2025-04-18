@@ -8,7 +8,36 @@ import {
     FaShieldAlt,
     FaUsers,
     FaTools,
+    FaDatabase,
+    FaCode,
+    FaDesktop,
+    FaGlobe,
+    FaCloudUploadAlt,
+    FaPaintBrush,
+    FaMobileAlt,
+    FaCogs,
+    FaPalette,
+    FaProjectDiagram,
 } from "react-icons/fa";
+
+const iconMap = {
+    FaServer: FaServer,
+    FaLaptopCode: FaLaptopCode,
+    FaCloud: FaCloud,
+    FaShieldAlt: FaShieldAlt,
+    FaUsers: FaUsers,
+    FaTools: FaTools,
+    FaDatabase: FaDatabase,
+    FaCode: FaCode,
+    FaDesktop: FaDesktop,
+    FaGlobe: FaGlobe,
+    FaCloudUploadAlt: FaCloudUploadAlt,
+    FaPaintBrush: FaPaintBrush,
+    FaMobileAlt: FaMobileAlt,
+    FaCogs: FaCogs,
+    FaPalette: FaPalette,
+    FaProjectDiagram: FaProjectDiagram,
+};
 
 export default function DetallesFormacion() {
     const { formacion, asignaturas, salidasProfesionales } = usePage().props;
@@ -41,20 +70,23 @@ export default function DetallesFormacion() {
                 </section>
                 <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 max-w-5xl w-full">
                     {/*Tarjeta de contenido*/}
-                    {asignaturas.map((asignatura) => (
-                        <div
-                            key={asignatura.id}
-                            className="bg-white text-gray-800 shadow-xl rounded-xl p-6 flex items-center space-x-4 hover:scale-105 transition-transform"
-                        >
-                            <FaServer className="text-xl text-purple-600 text-5xl" />
-                            <div>
-                                <h3 className="text-xl font-bold text-purple-700">
-                                    {asignatura.nombre}
-                                </h3>
-                                <p>{asignatura.descripcion}</p>
+                    {asignaturas.map((asignatura) => {
+                        const Icon = iconMap[asignatura.icono] || FaServer;
+                        return (
+                            <div
+                                key={asignatura.id}
+                                className="bg-white text-gray-800 shadow-xl rounded-xl p-6 flex items-center space-x-4 hover:scale-105 transition-transform"
+                            >
+                                <Icon className="w-9 h-9 text-purple-700" />
+                                <div>
+                                    <h3 className="text-xl font-bold text-purple-700">
+                                        {asignatura.nombre}
+                                    </h3>
+                                    <p>{asignatura.descripcion}</p>
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </section>
                 {/*Sección de salidas profesionales*/}
                 <section className="bg-white text-gray-800 shadow-2xl rounded-2xl p-8 mt-10 max-w-5xl w-full text-center animate-slide-up">

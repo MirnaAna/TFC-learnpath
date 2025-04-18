@@ -16,6 +16,15 @@ return new class extends Migration
         Schema::create('asignaturas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombre');
+            $table->text('descripcion')->nullable();
+            $table->text('icono')->nullable();
+            $table->text('documentacion')->nullable();
+            $table->text('tutorial')->nullable();
+            $table->foreignId('id_estado')
+            ->nullable()
+            ->constrained('estado_progreso')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->timestamps();
         });
     }

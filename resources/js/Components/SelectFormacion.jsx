@@ -4,9 +4,7 @@ import { Inertia } from "@inertiajs/inertia";
 
 export default function SelectFormacion({ formaciones }) {
     const [formacionSeleccionada, setFormacionSeleccionada] = useState("");
-    console.log(formaciones);
     function gestionarRedireccionFormacion() {
-        console.log("hoaaaaaaaaaaa", typeof formacionSeleccionada);
         if (formacionSeleccionada != "") {
             Inertia.visit(
                 `/detalles-formacion/${formacionSeleccionada.toLocaleUpperCase()}`

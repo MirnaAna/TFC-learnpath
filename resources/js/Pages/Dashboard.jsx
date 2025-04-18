@@ -5,7 +5,8 @@ import { Link, Head, usePage } from "@inertiajs/react";
 
 export default function Dashboard() {
     const nombreUsuario = usePage().props.auth.user.name;
-    const { asignaturas, formaciones, asignaturasProgreso } = usePage().props;
+    const { asignaturas, formaciones, asignaturasProgreso, estados } =
+        usePage().props;
     return (
         /*<AuthenticatedLayout
             auth={props.auth}
@@ -29,6 +30,7 @@ export default function Dashboard() {
                 <TablaProgreso
                     asignaturasProgreso={asignaturasProgreso}
                     formaciones={formaciones}
+                    estados={estados}
                 />
             </div>
         </>

@@ -1,14 +1,28 @@
 import React from "react";
 import { useState } from "react";
 import SelectFormacion from "@/Components/SelectFormacion";
+import { Inertia } from "@inertiajs/inertia";
 
-export default function TablaProgreso({ asignaturasProgreso, formaciones }) {
+export default function TablaProgreso({
+    asignaturasProgreso,
+    formaciones,
+    estados,
+}) {
     const [buscar, setBuscar] = useState("");
     const datosFiltrados = asignaturasProgreso.filter((item) =>
         `${item.nombre_asignatura} ${item.nombre_estado}`
             .toLowerCase()
             .includes(buscar.toLowerCase())
     );
+
+    const [abrirDropdown, setAbrirDropdown] = useState(null); // para saber el estado actual
+    const gestionarCambiarEstado = (idAsignatura, nuevoEstado) => {
+        Inertia.put(`/asignaturas/${idAsignatura}/cambiar-estado`, {
+            estado: nuevoEstado,
+        });
+        setAbrirDropdown(null); // cerramos el dropdown despues del cambio
+    };
+
     const renderTabla = (titulo, data) => {
         const filas = [...data];
         while (filas.length < 10) {
@@ -33,7 +47,12 @@ export default function TablaProgreso({ asignaturasProgreso, formaciones }) {
                                 <th className="border border-black p-2">
                                     Estado
                                 </th>
-                                <th className="border border-black p-2"></th>
+                                <th className="border border-black p-2">
+                                    Accion
+                                </th>
+                                <th className="border border-black p-2">
+                                    Actualizado
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -54,22 +73,41 @@ export default function TablaProgreso({ asignaturasProgreso, formaciones }) {
                                         )}
                                     </td>
                                     <td className="border border-black p-2">
-                                        {item.nombre_estado ? (
-                                            <button
-                                                className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-700 text-xs sm:text-sm"
-                                                onClick={() =>
-                                                    cambiarElestadoItems(
-                                                        item.nombre_estado
-                                                    )
-                                                }
-                                            >
-                                                Cambiar estado
-                                            </button>
-                                        ) : (
-                                            <span className="text-gray-400 text-sm">
-                                                Cambiar estado
-                                            </span>
+                                        <button
+                                            className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-700 text-xs sm:text-sm"
+                                            onClick={() =>
+                                                setAbrirDropdown((anterior) =>
+                                                    anterior ===
+                                                    item.id_asignatura
+                                                        ? null
+                                                        : item.id_asignatura
+                                                )
+                                            }
+                                        >
+                                            Cambiar estado
+                                        </button>
+                                        {abrirDropdown ===
+                                            item.id_asignatura && (
+                                            <div className="absolute mt-2 bg-white border shadow-md rounded z-10">
+                                                {estados.map((estado) => (
+                                                    <button
+                                                        key={estado.id}
+                                                        onClick={() =>
+                                                            gestionarCambiarEstado(
+                                                                item.id_asignatura,
+                                                                estado.nombre
+                                                            )
+                                                        }
+                                                        className="block w-full px-4 py-2 text-left hover:bg-gray-100"
+                                                    >
+                                                        {estado.nombre}
+                                                    </button>
+                                                ))}
+                                            </div>
                                         )}
+                                    </td>
+                                    <td className="border border-black p-2 text-sm">
+                                        {item.actualizado}
                                     </td>
                                 </tr>
                             ))}
