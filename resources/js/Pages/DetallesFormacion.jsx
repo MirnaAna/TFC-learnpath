@@ -41,9 +41,6 @@ const iconMap = {
 
 export default function DetallesFormacion() {
     const { formacion, asignaturas, salidasProfesionales } = usePage().props;
-    useEffect(() => {
-        console.log(asignaturas);
-    }, [formacion, asignaturas]);
 
     return (
         <>
@@ -58,7 +55,7 @@ export default function DetallesFormacion() {
                         ¿Qué es {formacion.abreviatura}?
                     </h2>
                     <p className="text-lg mb-8">
-                        {formacion.abreviatura} {formacion.texto_introducion}
+                        {formacion.abreviatura} {formacion.texto_introduccion}
                     </p>
                     <Link
                         href="/login"

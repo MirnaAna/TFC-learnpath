@@ -28,7 +28,14 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', [FormacionController::class, 'mostraDashboard']);
+//ruta para formaciones
+Route::get('/formaciones', [FormacionController::class, 'mostrarFormaciones']);
+
+//pagina mi progreso
+Route::get('/dashboard', [FormacionController::class, 'mostrarDashboard']);
+
+//ruta para recursos
+Route::get('/recursos', [FormacionController::class, 'mostrarRecursos']);
 
 //ruta para gestionar cambio de estado
 Route::put('/asignaturas/{idAsignatura}/cambiar-estado', [FormacionController::class, 'cambiarEstado']);

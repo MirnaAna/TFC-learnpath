@@ -8,6 +8,39 @@ const Navbar = () => {
     return (
         <nav>
             <ul>
+                <li className="float-left mr-8">
+                    <Link
+                        href="/"
+                        className=" text-gray-900 py-3 px-4 ml-4 hover:bg-yellow-100 hover:scale-105 transition-transform font-semibold"
+                    >
+                        Inicio
+                    </Link>
+                </li>
+                <li className="float-left mr-8">
+                    <Link
+                        href="/formaciones"
+                        className=" text-gray-900 py-3 px-4 ml-4 hover:bg-yellow-100 hover:scale-105 transition-transform font-semibold"
+                    >
+                        Formaciones
+                    </Link>
+                </li>
+                <li className="float-left mr-8">
+                    <Link
+                        href="/login"
+                        title="Con Sesion Requerida"
+                        className=" text-gray-900 py-3 px-4 ml-4 hover:bg-yellow-100 hover:scale-105 transition-transform font-semibold"
+                    >
+                        Progreso
+                    </Link>
+                </li>
+                <li className="float-left mr-8">
+                    <Link
+                        href="/recursos"
+                        className=" text-gray-900 py-3 px-4 ml-4 hover:bg-yellow-100 hover:scale-105 transition-transform font-semibold"
+                    >
+                        Recursos
+                    </Link>
+                </li>
                 {auth.user ? (
                     <>
                         <li className="float-left">

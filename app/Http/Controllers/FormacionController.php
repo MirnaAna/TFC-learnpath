@@ -30,21 +30,12 @@ class FormacionController extends Controller
       }
       
       //funcion para mostrar el dashboard
-      function mostraDashboard(){
+      function mostrarDashboard(Request $request){
+
         //obteneos los datos de la formacion 
-        $formacionSelecionada = DB::table('formaciones')->where('abreviatura', 'ASIR')->first();
-        //
         $formaciones= DB::table('formaciones')->get();
        
-        //seleccionamos asignaturas relacionadas a la formacion
-        $asignaturas =  DB::table('asignaturas_formacion')
-          ->join('asignaturas', 'asignaturas_formacion.id_asignatura', '=','asignaturas.id')
-          ->where('asignaturas_formacion.id_formacion',$formacionSelecionada->id)
-          ->select('asignaturas.*')
-          ->get();
-          // $asignaturasAprendidas=DB::table('asignaturas')
-          // ->join('estado_progreso', 'asignaturas.id', '=','asignatura.id')
-          // ->where()
+        //obtenemos asignaturas para construir la tabla progreso
           $asignaturasProgreso= DB:: table('asignaturas')
           ->join('estado_progreso', 'estado_progreso.id', '=','asignaturas.id_estado')
           ->select( 'asignaturas.id as id_asignatura',
@@ -54,20 +45,35 @@ class FormacionController extends Controller
            'estado_progreso.nombre as nombre_estado',
            'estado_progreso.updated_at as actualizado')
           ->get();
-          //que me devuelva todos los esatdos
+          //que me devuelva todos los estados
           $estados = DB::table('estado_progreso')
           ->get();
 
+        $abreviatura= $request->query('nuevaFormacionSeleccionada');
+        if($abreviatura){
+          $formacionSelecionada = DB::table('formaciones')->where('abreviatura', $abreviatura)->first();
+          $asignaturasProgreso =  DB::table('asignaturas_formacion')
+            ->join('asignaturas', 'asignaturas_formacion.id_asignatura', '=','asignaturas.id')
+            ->join('estado_progreso', 'estado_progreso.id', '=','asignaturas.id_estado')
+            ->select( 'asignaturas.id as id_asignatura',
+              'asignaturas.nombre as nombre_asignatura',
+              'asignaturas.descripcion as descripcion_asignatura',
+              'estado_progreso.id as id_estado',
+              'estado_progreso.nombre as nombre_estado',
+              'estado_progreso.updated_at as actualizado')
+            ->where('asignaturas_formacion.id_formacion',$formacionSelecionada->id)
+            ->get();
+        }
+
         return Inertia::render('Dashboard', [
           'formaciones' => $formaciones,
-          'asignaturas' => $asignaturas,
           'asignaturasProgreso' => $asignaturasProgreso,
           'estados' => $estados
         ]);
       }
 
       /**
-       * funcion para
+       * funcion para cambiar el estado del progreso
        */
       function cambiarEstado(Request $request, $idAsignatura){
         //obtenemos el id de estado
@@ -81,4 +87,25 @@ class FormacionController extends Controller
           ->update(['id_estado' =>$idEstado]);
         return redirect()->back()->with('mensaje', 'Estado Actualizado');
       }
-}
+
+      //funcion para mostrar formaciones
+      function mostrarFormaciones()
+      {
+          $formaciones=DB::table('formaciones')
+          ->get();
+          return Inertia::render('Formaciones', [
+              'formaciones' => $formaciones
+          ]);
+      }
+
+      //funcion para mostrar recursos
+      function mostrarRecursos()
+      {
+          $asignaturas=DB::table('asignaturas')
+          ->get();
+          return Inertia::render('Recursos', [
+              'asignaturas' => $asignaturas
+          ]);
+      }
+  }
+
