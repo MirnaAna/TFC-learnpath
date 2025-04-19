@@ -27,6 +27,7 @@ export default function Recursos({ asignaturas }) {
                     <table className="w-full border border-black shadow-md ">
                         <thead>
                             <tr className="bg-black text-white text-sm">
+                                <th className="border border-black p-2">#</th>
                                 <th className="border border-black p-2">
                                     {titulo}
                                 </th>
@@ -41,6 +42,9 @@ export default function Recursos({ asignaturas }) {
                         <tbody>
                             {datosFiltrados.map((item, index) => (
                                 <tr key={index} className="text-center">
+                                    <td className="border border-black p-2">
+                                        {index + 1}
+                                    </td>
                                     <td className="border border-black p-2 text-sm">
                                         {item.nombre && (
                                             <span className="text-gray-400">

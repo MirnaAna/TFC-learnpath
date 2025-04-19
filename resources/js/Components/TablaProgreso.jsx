@@ -63,6 +63,7 @@ export default function TablaProgreso({
                     <table className="w-full border border-black shadow-md ">
                         <thead>
                             <tr className="bg-black text-white text-sm">
+                                <th className="border border-black p-2">#</th>
                                 <th className="border border-black p-2">
                                     {titulo}
                                 </th>
@@ -80,13 +81,13 @@ export default function TablaProgreso({
                         <tbody>
                             {datosFiltrados.map((item, index) => (
                                 <tr key={index} className="text-center">
+                                    <td className="border border-black p-2">
+                                        {index + 1}
+                                    </td>
                                     <td className="border border-black p-2 text-sm">
                                         {item.nombre_asignatura && (
                                             <span className="text-gray-400">
-                                                {item.nombre_asignatura}{" "}
-                                                {/* <i className="tex-gray-700">
-                                                    {item.abreviatura_formacion}
-                                                </i> */}
+                                                {item.nombre_asignatura}
                                             </span>
                                         )}
                                     </td>
