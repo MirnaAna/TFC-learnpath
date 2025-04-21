@@ -107,5 +107,10 @@ class FormacionController extends Controller
               'asignaturas' => $asignaturas
           ]);
       }
+      function mostrarTrabajos()
+      {
+          
+          return Inertia::render('Trabajos');
+      }
   }
 

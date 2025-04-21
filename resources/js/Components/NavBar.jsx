@@ -41,6 +41,14 @@ const Navbar = () => {
                         Recursos
                     </Link>
                 </li>
+                <li className="float-left mr-8">
+                    <Link
+                        href="/mostrar-trabajos"
+                        className=" text-gray-900 py-3 px-4 ml-4 hover:bg-yellow-100 hover:scale-105 transition-transform font-semibold"
+                    >
+                        Ofertas de Trabajo
+                    </Link>
+                </li>
                 {auth.user ? (
                     <>
                         <li className="float-left">
