@@ -20,31 +20,39 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
- 
-
-//DESCOMENTAR PARA PODER EJECUTAR LOS SEEDER.
-
-        
-    // $this->call([
-    //     EstadoProgreso::class,
-    // ]);
-
-    // $this->call([
-    //         Asignaturas::class,
-    //     ]);
 
 
-    // $this->call([
-    //         Formaciones::class,
-    //     ]);
+        //DESCOMENTAR PARA PODER EJECUTAR LOS SEEDER. php artisan db:seed  
 
-    // $this->call([
-    //         SalidasProfesionales::class,
-    //     ]);
 
-    // $this->call([
-    //         AsignaturasFormacion::class,
-    //     ]);
+        // $this->call([
+        //     EstadoProgreso::class,
+        // ]);
 
+        // $this->call([
+        //         Asignaturas::class,
+        //     ]);
+
+
+        // $this->call([
+        //         Formaciones::class,
+        //     ]);
+
+        // $this->call([
+        //         SalidasProfesionales::class,
+        //     ]);
+
+        // $this->call([
+        //         AsignaturasFormacion::class,
+        //     ]);
+        // $this->call([
+        //     Preguntas::class,
+        // ]);
+        // $this->call([
+        //     Resultados::class,
+        // ]);
+        $this->call([
+            Respuestas::class,
+        ]);
     }
 }

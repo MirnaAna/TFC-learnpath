@@ -1,5 +1,7 @@
 <?php
+
 use App\Http\Controllers\FormacionController;
+use App\Http\Controllers\CuestionarioController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -42,6 +44,15 @@ Route::get('/mostrar-trabajos', [FormacionController::class, 'mostrarTrabajos'])
 //ruta para gestionar cambio de estado
 Route::put('/asignaturas/{idAsignatura}/cambiar-estado', [FormacionController::class, 'cambiarEstado']);
 
+//ruta para detalles formacion
+Route::get('/detalles-formacion/{formacion}', [FormacionController::class, 'mostrarDetalles']);
+
+//muestra la pagina cuestionario
+Route::get('/cuestionario/{idAsignatura}', [CuestionarioController::class, 'mostrarCuestionario']);
+
+//ruta para enviar el cuestionario
+Route::put('/enviar-cuestionario', [CuestionarioController::class, 'enviarCuestionario']);
+
 //ruta para el login
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -53,5 +64,4 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthenticatedSessionController::class, 'destroy']);
 });
-Route::get('/detalles-formacion/{formacion}', [FormacionController::class, 'mostrarDetalles']);
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

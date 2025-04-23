@@ -3,6 +3,7 @@ import { useState } from "react";
 import SelectFormacion from "@/Components/SelectFormacion";
 import { Inertia } from "@inertiajs/inertia";
 import { usePage } from "@inertiajs/react";
+import { Link } from "@inertiajs/react";
 
 export default function TablaProgreso({
     asignaturasProgreso,
@@ -134,7 +135,11 @@ export default function TablaProgreso({
                                     </td>
                                     {/* formato de la fecha */}
                                     <td className="border border-black p-2 text-sm">
-                                        <a href="/cuestionario">Test</a>
+                                        <a
+                                            href={`/cuestionario/${item.id_asignatura}`}
+                                        >
+                                            Realizar Test
+                                        </a>
                                     </td>
                                 </tr>
                             ))}
