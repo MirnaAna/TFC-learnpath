@@ -74,7 +74,7 @@ export default function TablaProgreso({
                                     Accion
                                 </th>
                                 <th className="border border-black p-2">
-                                    Actualizado
+                                    Cuestionarios
                                 </th>
                             </tr>
                         </thead>
@@ -134,7 +134,7 @@ export default function TablaProgreso({
                                     </td>
                                     {/* formato de la fecha */}
                                     <td className="border border-black p-2 text-sm">
-                                        {item.actualizado}
+                                        <a href="/cuestionario">Test</a>
                                     </td>
                                 </tr>
                             ))}

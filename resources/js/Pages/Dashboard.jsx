@@ -1,11 +1,12 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import TablaProgreso from "@/Components/TablaProgreso";
+import ChartProgreso from "@/Components/ChartProgreso";
 import Header from "../Components/Header";
 import { Link, Head, usePage } from "@inertiajs/react";
 
 export default function Dashboard() {
     const nombreUsuario = usePage().props.auth.user.name;
-    const { asignaturas, formaciones, asignaturasProgreso, estados } =
+    const { formaciones, asignaturasProgreso, estados, asignaturaEstado } =
         usePage().props;
     return (
         /*<AuthenticatedLayout
@@ -32,6 +33,9 @@ export default function Dashboard() {
                     formaciones={formaciones}
                     estados={estados}
                 />
+            </div>
+            <div>
+                <ChartProgreso asignaturaEstado={asignaturaEstado} />
             </div>
         </>
         //</AuthenticatedLayout>

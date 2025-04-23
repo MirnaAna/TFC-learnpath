@@ -64,11 +64,17 @@ class FormacionController extends Controller
             ->where('asignaturas_formacion.id_formacion',$formacionSelecionada->id)
             ->get();
         }
+        
+        $asignaturaEstado=DB::table('asignaturas')
+        ->join('estado_progreso', 'estado_progreso.id', '=', 'asignaturas.id_estado')
+        ->select('asignaturas.id', 'asignaturas.nombre as nombre_asignatura', 'estado_progreso.nombre as nombre_estado')
+        ->get();
 
         return Inertia::render('Dashboard', [
           'formaciones' => $formaciones,
           'asignaturasProgreso' => $asignaturasProgreso,
-          'estados' => $estados
+          'estados' => $estados,
+          'asignaturaEstado' => $asignaturaEstado
         ]);
       }
 
