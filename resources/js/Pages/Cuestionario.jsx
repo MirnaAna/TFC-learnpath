@@ -1,10 +1,15 @@
 import { Link, Head, usePage } from "@inertiajs/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "../Components/Header";
+import { Inertia } from "@inertiajs/inertia";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Cuestionario({ asignatura, preguntas }) {
     const [respuestasMarcadas, setRespuestasMarcadas] = useState({});
-
+    const { props } = usePage();
+    const mensaje = props.success;
+    console.log("bbb ", props);
     const gestionarRespuestaMarcada = (idPregunta, idRespuesta) => {
         setRespuestasMarcadas((prev) => ({
             ...prev,
@@ -14,11 +19,24 @@ export default function Cuestionario({ asignatura, preguntas }) {
 
     const enviarCuestionario = () => {
         console.log(respuestasMarcadas);
-        // Aquí haces un fetch/axios o inertia.post para enviar al backend
-        Inertia.put("/enviar-cuestionario");
+        // enviamos los resultados del cuestionario al backend
+        Inertia.put("/enviar-cuestionario", {
+            respuestas: respuestasMarcadas,
+            id_asignatura: asignatura.id,
+        });
     };
+
+    useEffect(() => {
+        if (mensaje) {
+            toast.success(mensaje, {
+                closeButton: true,
+            });
+        }
+    }, [mensaje]);
+
     return (
         <>
+            <ToastContainer position="top-right" autoClose={5000} closeButton />
             <Head title="cuestionario" />
             <Header />
             <div className="p-6">
@@ -58,7 +76,7 @@ export default function Cuestionario({ asignatura, preguntas }) {
                     ))}
                 </ol>
                 <button
-                    onClick={enviarCuestionario}
+                    onClick={() => enviarCuestionario(asignatura.id)}
                     className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
                 >
                     Enviar cuestionario

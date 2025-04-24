@@ -58,22 +58,50 @@ class CuestionarioController extends Controller
     //funcion para almacenar las respuestas en el cuestionario
     function enviarCuestionario(Request $request)
     {
-
+        $respuestas = $request->input('respuestas');
+        $idAsignatura = $request->input('id_asignatura');
         $idUsuario = auth()->id();
-        $idAsignatura = $request->input('asignatura.id');
-        $puntuacion = $request->input('puntuacion');
-        $totalPreguntas = $request->input('total_preguntas');
-        $respuestasCorrectas = $request->input('respuestas_correctas');
 
-        // DB::table('resultados')->insert([
-        //     'id_usuario' => $idUsuario,
-        //     'asignatura.id' => $idAsignatura,
-        //     'puntuacion' => $puntuacion,
-        //     'total_preguntas' => $totalPreguntas,
-        //     'respuestas_correctas' => $respuestasCorrectas,
-        //     'created_at' => now(),
-        //     'updated_at' => now(),
-        // ]);
+        $totalPreguntas = count($respuestas);
+        $respuestasCorrectas = 0;
 
+        //obtenemos el numero de respuestas correctas
+        foreach ($respuestas as $idPregunta => $idRespuesta) {
+            $respuesta = DB::table('respuestas')->where('id', $idRespuesta)->first();
+            if ($respuesta && $respuesta->es_correcto) {
+                $respuestasCorrectas++;
+            }
+        }
+        $puntuacion = $respuestasCorrectas * 2;
+
+        $idAsignaturaExistente = DB::table('resultados')
+            ->select('id_asignatura')
+            ->where('id_asignatura', $idAsignatura)->first();
+
+        if ($idAsignatura == $idAsignaturaExistente->id_asignatura) {
+            //actualizamos el resultado de la existente asignatura
+            DB::table('resultados')->update([
+                'id_usuario' => $idUsuario,
+                'id_asignatura' => $idAsignatura,
+                'puntuacion' => $puntuacion,
+                'total_preguntas' => $totalPreguntas,
+                'respuestas_correctas' => $respuestasCorrectas,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        } else { //insertamos resultado para una nueva asignatura
+            DB::table('resultados')->insert([
+                'id_usuario' => $idUsuario,
+                'id_asignatura' => $idAsignatura,
+                'puntuacion' => $puntuacion,
+                'total_preguntas' => $totalPreguntas,
+                'respuestas_correctas' => $respuestasCorrectas,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
+        // return redirect()->route('/dashboard')->with('success', '¡Cuestionario enviado!');
+        return back()->with('success', '¡Cuestionario enviado!');
     }
 }
