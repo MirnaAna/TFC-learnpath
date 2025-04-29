@@ -49,7 +49,7 @@ class DatabaseSeeder extends Seeder
         //     Preguntas::class,
         // ]);
         // $this->call([
-        //     Resultados::class,
+        //     Respuestas::class,
         // ]);
     }
 }

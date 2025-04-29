@@ -44,6 +44,7 @@ class FormacionController extends Controller
         'asignaturas.id as id_asignatura',
         'asignaturas.nombre as nombre_asignatura',
         'asignaturas.descripcion as descripcion_asignatura',
+        'asignaturas.nota as nota_asignatura',
         'estado_progreso.id as id_estado',
         'estado_progreso.nombre as nombre_estado',
         'estado_progreso.updated_at as actualizado'
@@ -76,13 +77,18 @@ class FormacionController extends Controller
       ->select('asignaturas.id', 'asignaturas.nombre as nombre_asignatura', 'estado_progreso.nombre as nombre_estado')
       ->get();
 
+    // dd($asignaturaEstado);    //obtenemos las notas
+    // $notas = DB::table('resultados')->get();
+
     return Inertia::render('Dashboard', [
       'formaciones' => $formaciones,
       'asignaturasProgreso' => $asignaturasProgreso,
       'estados' => $estados,
-      'asignaturaEstado' => $asignaturaEstado
+      'asignaturaEstado' => $asignaturaEstado,
+      // 'notas' => $notas
     ]);
   }
+
 
   /**
    * funcion para cambiar el estado del progreso

@@ -77,6 +77,9 @@ export default function TablaProgreso({
                                 <th className="border border-black p-2">
                                     Cuestionarios
                                 </th>
+                                <th className="border border-black p-2">
+                                    Notas
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -133,13 +136,20 @@ export default function TablaProgreso({
                                             </div>
                                         )}
                                     </td>
-                                    {/* formato de la fecha */}
+                                    {/* realizar test */}
                                     <td className="border border-black p-2 text-sm text-blue-700">
                                         <a
                                             href={`/cuestionario/${item.id_asignatura}`}
                                         >
                                             Realizar Test
                                         </a>
+                                    </td>
+                                    <td className="border border-black p-2 text-sm">
+                                        <span className="text-gray-400">
+                                            {item.nota_asignatura
+                                                ? item.nota_asignatura
+                                                : "--"}
+                                        </span>
                                     </td>
                                 </tr>
                             ))}

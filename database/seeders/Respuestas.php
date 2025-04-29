@@ -753,5 +753,183 @@ class Respuestas extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+        DB::table('respuestas')->insert([
+            'texto' => 'Facilita la creación de bases de datos no relacionales',
+            'es_correcto' => 1,
+            'id_pregunta' => 29,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('respuestas')->insert([
+            'texto' => 'Facilita la creación de bases de datos no relacionales',
+            'es_correcto' => 0,
+            'id_pregunta' => 29,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('respuestas')->insert([
+            'texto' => 'Facilita la creación de bases de datos no relacionales',
+            'es_correcto' => 0,
+            'id_pregunta' => 29,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('respuestas')->insert([
+            'texto' => 'Facilita la creación de bases de datos no relacionales',
+            'es_correcto' => 1,
+            'id_pregunta' => 30,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('respuestas')->insert([
+            'texto' => 'Facilita la creación de bases de datos no relacionales',
+            'es_correcto' => 0,
+            'id_pregunta' => 30,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('respuestas')->insert([
+            'texto' => 'Facilita la creación de bases de datos no relacionales',
+            'es_correcto' => 0,
+            'id_pregunta' => 30,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        DB::table('respuestas')->insert([
+            'texto' => 'Facilita la creación de bases de datos no relacionales',
+            'es_correcto' => 1,
+            'id_pregunta' => 31,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('respuestas')->insert([
+            'texto' => 'Facilita la creación de bases de datos no relacionales',
+            'es_correcto' => 0,
+            'id_pregunta' => 31,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('respuestas')->insert([
+            'texto' => 'Facilita la creación de bases de datos no relacionales',
+            'es_correcto' => 0,
+            'id_pregunta' => 31,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('respuestas')->insert([
+            'texto' => 'Facilita la creación de bases de datos no relacionales?',
+            'es_correcto' => 1,
+            'id_pregunta' => 32,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('respuestas')->insert([
+            'texto' => 'Facilita la creación de bases de datos no relacionales',
+            'es_correcto' => 0,
+            'id_pregunta' => 32,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        DB::table('respuestas')->insert([
+            'texto' => 'Facilita la creación de bases de datos no relacionales?',
+            'es_correcto' => 1,
+            'id_pregunta' => 33,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('respuestas')->insert([
+            'texto' => 'Facilita la creación de bases de datos no relacionales',
+            'es_correcto' => 0,
+            'id_pregunta' => 33,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        DB::table('respuestas')->insert([
+            'texto' => 'Facilita la creación de bases de datos no relacionales?',
+            'es_correcto' => 1,
+            'id_pregunta' => 34,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('respuestas')->insert([
+            'texto' => 'Facilita la creación de bases de datos no relacionales',
+            'es_correcto' => 0,
+            'id_pregunta' => 34,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('respuestas')->insert([
+            'texto' => 'Facilita la creación de bases de datos no relacionales?',
+            'es_correcto' => 1,
+            'id_pregunta' => 35,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('respuestas')->insert([
+            'texto' => 'Facilita la creación de bases de datos no relacionales',
+            'es_correcto' => 0,
+            'id_pregunta' => 35,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('respuestas')->insert([
+            'texto' => 'Facilita la creación de bases de datos no relacionales?',
+            'es_correcto' => 1,
+            'id_pregunta' => 36,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('respuestas')->insert([
+            'texto' => 'Facilita la creación de bases de datos no relacionales',
+            'es_correcto' => 0,
+            'id_pregunta' => 36,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('respuestas')->insert([
+            'texto' => 'Facilita la creación de bases de datos no relacionales?',
+            'es_correcto' => 1,
+            'id_pregunta' => 37,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('respuestas')->insert([
+            'texto' => 'Facilita la creación de bases de datos no relacionales',
+            'es_correcto' => 0,
+            'id_pregunta' => 37,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('respuestas')->insert([
+            'texto' => 'Facilita la creación de bases de datos no relacionales?',
+            'es_correcto' => 1,
+            'id_pregunta' => 38,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('respuestas')->insert([
+            'texto' => 'Facilita la creación de bases de datos no relacionales',
+            'es_correcto' => 0,
+            'id_pregunta' => 38,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('respuestas')->insert([
+            'texto' => 'Facilita la creación de bases de datos no relacionales?',
+            'es_correcto' => 1,
+            'id_pregunta' => 39,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('respuestas')->insert([
+            'texto' => 'Facilita la creación de bases de datos no relacionales',
+            'es_correcto' => 0,
+            'id_pregunta' => 39,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 }

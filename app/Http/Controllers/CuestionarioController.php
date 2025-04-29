@@ -72,13 +72,17 @@ class CuestionarioController extends Controller
                 $respuestasCorrectas++;
             }
         }
-        $puntuacion = $respuestasCorrectas * 2;
+        $puntuacion = $respuestasCorrectas * 3.333;
 
         $idAsignaturaExistente = DB::table('resultados')
             ->select('id_asignatura')
             ->where('id_asignatura', $idAsignatura)->first();
 
-        if ($idAsignatura == $idAsignaturaExistente->id_asignatura) {
+        $resultadosTotal = DB::table('resultados')
+            ->select('id_asignatura')
+            ->where('id_asignatura', $idAsignatura)->get();
+        // dd($idAsignaturaExistente->count());
+        if ($resultadosTotal->count() > 0 && $idAsignatura == $idAsignaturaExistente->id_asignatura) {
             //actualizamos el resultado de la existente asignatura
             DB::table('resultados')->update([
                 'id_usuario' => $idUsuario,
@@ -100,6 +104,15 @@ class CuestionarioController extends Controller
                 'updated_at' => now(),
             ]);
         }
+
+        // insertamos la nota en la asignatura
+        DB::table('asignaturas')
+            // ->where('id_usuario', $idUsuario)
+            ->where('id', $idAsignatura)
+            ->update([
+                'nota' => $puntuacion,
+                'updated_at' => now(),
+            ]);
 
         return redirect()->route('dashboard')->with('success', '¡Cuestionario Enviado Correctamente!');
     }
