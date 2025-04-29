@@ -16,13 +16,13 @@ return new class extends Migration
         Schema::create('formaciones', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombre')->unique();
-            $table->text('texto_introducion');
+            $table->text('texto_introduccion');
             $table->text('texto_descripcion');
             $table->text('abreviatura')->nullable();
             $table->foreignId('id_asignatura')
-                  ->constrained('asignaturas')
-                  ->onUpdate('cascade')
-                  ->onDelete('cascade');
+                ->constrained('asignaturas')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

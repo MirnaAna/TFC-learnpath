@@ -101,7 +101,6 @@ class CuestionarioController extends Controller
             ]);
         }
 
-        // return redirect()->route('/dashboard')->with('success', '¡Cuestionario enviado!');
-        return back()->with('success', '¡Cuestionario enviado!');
+        return redirect()->route('dashboard')->with('success', '¡Cuestionario Enviado Correctamente!');
     }
 }

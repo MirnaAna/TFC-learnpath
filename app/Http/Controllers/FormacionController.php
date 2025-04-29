@@ -98,7 +98,8 @@ class FormacionController extends Controller
     DB::table('asignaturas')
       ->where('id', $idAsignatura)
       ->update(['id_estado' => $idEstado]);
-    return redirect()->back()->with('mensaje', 'Estado Actualizado');
+
+    return redirect()->route('dashboard')->with('success', '¡Estado Actualizado Correctamente!');
   }
 
   //funcion para mostrar formaciones

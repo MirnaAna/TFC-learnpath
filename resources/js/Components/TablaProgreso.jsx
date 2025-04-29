@@ -134,7 +134,7 @@ export default function TablaProgreso({
                                         )}
                                     </td>
                                     {/* formato de la fecha */}
-                                    <td className="border border-black p-2 text-sm">
+                                    <td className="border border-black p-2 text-sm text-blue-700">
                                         <a
                                             href={`/cuestionario/${item.id_asignatura}`}
                                         >

@@ -2,12 +2,22 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import TablaProgreso from "@/Components/TablaProgreso";
 import ChartProgreso from "@/Components/ChartProgreso";
 import Header from "../Components/Header";
+import { useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Link, Head, usePage } from "@inertiajs/react";
 
 export default function Dashboard() {
     const nombreUsuario = usePage().props.auth.user.name;
     const { formaciones, asignaturasProgreso, estados, asignaturaEstado } =
         usePage().props;
+
+    const mensaje = usePage().props.success;
+    useEffect(() => {
+        if (mensaje) {
+            toast.success(mensaje);
+        }
+    }, [mensaje]);
     return (
         /*<AuthenticatedLayout
             auth={props.auth}
@@ -18,6 +28,16 @@ export default function Dashboard() {
         <>
             <Head title="Dashboard" />
             <Header></Header>
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                closeOnClick={false}
+                draggable={false}
+                pauseOnHover={true}
+                newestOnTop={true}
+                theme="colored"
+                style={{ fontSize: "1.2rem", padding: "1rem" }}
+            />
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">

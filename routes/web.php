@@ -34,7 +34,7 @@ Route::get('/', function () {
 Route::get('/formaciones', [FormacionController::class, 'mostrarFormaciones']);
 
 //pagina mi progreso
-Route::get('/dashboard', [FormacionController::class, 'mostrarDashboard']);
+Route::get('/dashboard', [FormacionController::class, 'mostrarDashboard'])->name('dashboard');
 
 //ruta para recursos
 Route::get('/recursos', [FormacionController::class, 'mostrarRecursos']);
