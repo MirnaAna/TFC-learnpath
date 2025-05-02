@@ -60,7 +60,7 @@ class CuestionarioController extends Controller
     {
         $respuestas = $request->input('respuestas');
         $idAsignatura = $request->input('id_asignatura');
-        $idUsuario = auth()->id();
+        $idUsuarioActual = auth()->id();
 
         $totalPreguntas = count($respuestas);
         $respuestasCorrectas = 0;
@@ -81,21 +81,29 @@ class CuestionarioController extends Controller
         $resultadosTotal = DB::table('resultados')
             ->select('id_asignatura')
             ->where('id_asignatura', $idAsignatura)->get();
-        // dd($idAsignaturaExistente->count());
-        if ($resultadosTotal->count() > 0 && $idAsignatura == $idAsignaturaExistente->id_asignatura) {
+
+        //obtenemos el existente usuario
+        // $idUsuarioExistente = DB::table('resultados')
+        //     ->where('id_usuario', $idUsuarioActual)
+        //     ->select('id_usuario')->first();
+
+        // $usuarioExiste = $idUsuarioExistente !== null && $idUsuarioExistente->id_usuario == $idUsuarioActual;
+        $resultadoExiste = $resultadosTotal->count() > 0;
+        if ($resultadoExiste) {
+            // dd($resultadoExiste);
             //actualizamos el resultado de la existente asignatura
-            DB::table('resultados')->update([
-                'id_usuario' => $idUsuario,
-                'id_asignatura' => $idAsignatura,
-                'puntuacion' => $puntuacion,
-                'total_preguntas' => $totalPreguntas,
-                'respuestas_correctas' => $respuestasCorrectas,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+            DB::table('resultados')
+                ->where('id_usuario', $idUsuarioActual)
+                ->where('id_asignatura', $idAsignaturaExistente)
+                ->update([
+                    'puntuacion' => $puntuacion,
+                    'total_preguntas' => $totalPreguntas,
+                    'respuestas_correctas' => $respuestasCorrectas,
+                    'updated_at' => now(),
+                ]);
         } else { //insertamos resultado para una nueva asignatura
             DB::table('resultados')->insert([
-                'id_usuario' => $idUsuario,
+                'id_usuario' => $idUsuarioActual,
                 'id_asignatura' => $idAsignatura,
                 'puntuacion' => $puntuacion,
                 'total_preguntas' => $totalPreguntas,
@@ -107,10 +115,11 @@ class CuestionarioController extends Controller
 
         // insertamos la nota en la asignatura
         DB::table('asignaturas')
-            // ->where('id_usuario', $idUsuario)
+            ->where('id_usuario', $idUsuarioActual)
             ->where('id', $idAsignatura)
             ->update([
                 'nota' => $puntuacion,
+                'id_usuario' => $idUsuarioActual,
                 'updated_at' => now(),
             ]);
 
