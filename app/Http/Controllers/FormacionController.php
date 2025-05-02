@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FormacionController extends Controller
 {
@@ -45,6 +46,7 @@ class FormacionController extends Controller
         'asignaturas.nombre as nombre_asignatura',
         'asignaturas.descripcion as descripcion_asignatura',
         'asignaturas.nota as nota_asignatura',
+        'asignaturas.id_usuario as id_usuario',
         'estado_progreso.id as id_estado',
         'estado_progreso.nombre as nombre_estado',
         'estado_progreso.updated_at as actualizado'
@@ -66,7 +68,6 @@ class FormacionController extends Controller
           'asignaturas.descripcion as descripcion_asignatura',
           'estado_progreso.id as id_estado',
           'estado_progreso.nombre as nombre_estado',
-          'estado_progreso.updated_at as actualizado'
         )
         ->where('asignaturas_formacion.id_formacion', $formacionSelecionada->id)
         ->get();
@@ -77,15 +78,11 @@ class FormacionController extends Controller
       ->select('asignaturas.id', 'asignaturas.nombre as nombre_asignatura', 'estado_progreso.nombre as nombre_estado')
       ->get();
 
-    // dd($asignaturaEstado);    //obtenemos las notas
-    // $notas = DB::table('resultados')->get();
-
     return Inertia::render('Dashboard', [
       'formaciones' => $formaciones,
       'asignaturasProgreso' => $asignaturasProgreso,
       'estados' => $estados,
       'asignaturaEstado' => $asignaturaEstado,
-      // 'notas' => $notas
     ]);
   }
 

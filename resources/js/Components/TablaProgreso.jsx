@@ -18,6 +18,7 @@ export default function TablaProgreso({
             .includes(buscar.toLowerCase())
     );
 
+    const usuarioActual = usePage().props.auth.user;
     const [formacionSeleccionada, setFormacionSeleccionada] = useState("");
     const [asignaturas, setAsignaturas] = useState(datosFiltrados || []);
     const gestionarFormacionSelecionada = (valorSeleccionado) => {
@@ -146,7 +147,8 @@ export default function TablaProgreso({
                                     </td>
                                     <td className="border border-black p-2 text-sm">
                                         <span className="text-gray-400">
-                                            {item.nota_asignatura
+                                            {item.nota_asignatura &&
+                                            item.id_usuario === usuarioActual.id
                                                 ? item.nota_asignatura
                                                 : "--"}
                                         </span>

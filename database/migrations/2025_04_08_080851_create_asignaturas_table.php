@@ -20,11 +20,16 @@ return new class extends Migration
             $table->text('icono')->nullable();
             $table->text('documentacion')->nullable();
             $table->text('tutorial')->nullable();
+            $table->integer('nota')->nullable();
             $table->foreignId('id_estado')
-            ->nullable()
-            ->constrained('estado_progreso')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
+                ->nullable()
+                ->constrained('estado_progreso')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreignId('id_usuario')->nullable()
+                ->constrained('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }
