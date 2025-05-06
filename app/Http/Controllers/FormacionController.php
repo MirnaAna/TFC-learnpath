@@ -31,10 +31,33 @@ class FormacionController extends Controller
     ]);
   }
 
+  //funcion para asignar asignaturas para un nuevo usuario 
+  private function asignarUsuarioAsignaturas()
+  {
+    $asignaturas = DB::table('asignaturas')->get();
+    $idUsuarioActual = auth()->id();
+    //si el usuario no existe en la tabla resultados que lo añada y que añada las asignaturas
+    foreach ($asignaturas as $asignatura) {
+      $existe = DB::table('resultados')
+        ->where('id_usuario', $idUsuarioActual)
+        ->where('id_asignatura', $asignatura->id)
+        ->exists();
+
+      if (!$existe) {
+        DB::table('resultados')->insert([
+          'id_usuario' => $idUsuarioActual,
+          'id_asignatura' => $asignatura->id,
+          'created_at' => now(),
+          'updated_at' => now(),
+        ]);
+      }
+    }
+  }
+
   //funcion para mostrar el dashboard
   function mostrarDashboard(Request $request)
   {
-
+    $this->asignarUsuarioAsignaturas();
     //obteneos los datos de la formacion 
     $formaciones = DB::table('formaciones')->get();
 
@@ -89,12 +112,6 @@ class FormacionController extends Controller
         'estado_progreso.nombre as Estado'
       )
       ->where('resultados.id_usuario', $idUsuarioActual)
-      // $asignaturaEstado = DB::table('asignaturas')
-      //   ->join('estado_progreso', 'estado_progreso.id', '=', 'asignaturas.id_estado')
-      //   ->select(
-      //     'asignaturas.nombre as nombre_asignatura',
-      //     'estado_progreso.nombre as Estado'
-      //   )
       ->get();
 
     return Inertia::render('Dashboard', [
@@ -103,38 +120,8 @@ class FormacionController extends Controller
       'estados' => $estados,
       'asignaturaEstado' => $asignaturaEstado,
     ]);
-
-    //TODO:
-
-    //1) matricular usuario en todas las asignaturas una vez que se da de alta
-    // optcion A: automaticamente
-    // opcion B: mostrar lista vacia y click en matricular en asignaturas
-
-    //2) Eliminar id_usuario y nota en asignaturas
-
-    //3) add seeder para Resultados
-
-    //4) Hacer que el estado se cambie automaticamente dependiendo de la nota obtenida
   }
 
-
-  /**
-   * funcion para cambiar el estado del progreso
-   */
-  function cambiarEstado(Request $request, $idAsignatura)
-  {
-    //obtenemos el id de estado
-    $idEstado = DB::table('estado_progreso')
-      ->where('nombre', $request->estado)
-      ->first()->id;
-
-    //actualizamos en estado
-    DB::table('asignaturas')
-      ->where('id', $idAsignatura)
-      ->update(['id_estado' => $idEstado]);
-
-    return redirect()->route('dashboard')->with('success', '¡Estado Actualizado Correctamente!');
-  }
 
   //funcion para mostrar formaciones
   function mostrarFormaciones()
@@ -156,7 +143,7 @@ class FormacionController extends Controller
     ]);
   }
 
-  //
+  //datos de la API
   function mostrarTrabajos()
   {
 

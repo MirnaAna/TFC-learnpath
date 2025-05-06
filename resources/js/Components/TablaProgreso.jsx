@@ -5,15 +5,11 @@ import { Inertia } from "@inertiajs/inertia";
 import { usePage } from "@inertiajs/react";
 import { Link } from "@inertiajs/react";
 
-export default function TablaProgreso({
-    asignaturasProgreso,
-    formaciones,
-    estados,
-}) {
+export default function TablaProgreso({ asignaturasProgreso, formaciones }) {
     const { url } = usePage();
     const [buscar, setBuscar] = useState("");
     const datosFiltrados = asignaturasProgreso.filter((item) =>
-        `${item.nombre_asignatura} ${item.nombre_estado}`
+        `${item.nombre_asignatura} ${nombreEstado(item.nota_asignatura)}`
             .toLowerCase()
             .includes(buscar.toLowerCase())
     );
@@ -38,14 +34,16 @@ export default function TablaProgreso({
         }
     };
 
-    //para gestionar el cambio de estado
-    const [abrirDropdown, setAbrirDropdown] = useState(null); // para saber el estado actual
-    const gestionarCambiarEstado = (idAsignatura, nuevoEstado) => {
-        Inertia.put(`/asignaturas/${idAsignatura}/cambiar-estado`, {
-            estado: nuevoEstado,
-        });
-        setAbrirDropdown(null); // cerramos el dropdown despues del cambio
-    };
+    //para que el estado dependa de la asignatura
+    function nombreEstado(puntuacion) {
+        if (puntuacion === null) {
+            return "Aprender";
+        } else if (puntuacion >= 0 && puntuacion < 5) {
+            return "Mejorar";
+        } else if (puntuacion >= 5) {
+            return "Aprendido";
+        }
+    }
 
     const renderTabla = (titulo, data) => {
         const filas = [...data];
@@ -73,9 +71,6 @@ export default function TablaProgreso({
                                     Estado
                                 </th>
                                 <th className="border border-black p-2">
-                                    Accion
-                                </th>
-                                <th className="border border-black p-2">
                                     Cuestionarios
                                 </th>
                                 <th className="border border-black p-2">
@@ -97,59 +92,29 @@ export default function TablaProgreso({
                                         )}
                                     </td>
                                     <td className="border border-black p-2 text-sm">
-                                        {item.nombre_estado && (
-                                            <span
-                                                className={
-                                                    item.nombre_estado ===
-                                                    "Aprendido"
-                                                        ? "text-green-400"
-                                                        : item.nombre_estado ===
-                                                          "Mejorar"
-                                                        ? "text-orange-800"
-                                                        : "text-red-400"
-                                                }
-                                            >
-                                                {item.nombre_estado}
-                                            </span>
-                                        )}
-                                    </td>
-                                    <td className="border border-black p-2">
-                                        <button
-                                            className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-700 text-xs sm:text-sm"
-                                            onClick={() =>
-                                                setAbrirDropdown((anterior) =>
-                                                    anterior ===
-                                                    item.id_asignatura
-                                                        ? null
-                                                        : item.id_asignatura
-                                                )
+                                        {/* {item.nombre_estado && ( */}
+                                        <span
+                                            className={
+                                                nombreEstado(
+                                                    item.nota_asignatura
+                                                ) === "Aprendido"
+                                                    ? "text-green-400"
+                                                    : nombreEstado(
+                                                          item.nota_asignatura
+                                                      ) === "Mejorar"
+                                                    ? "text-orange-800"
+                                                    : "text-red-400"
                                             }
                                         >
-                                            Cambiar estado
-                                        </button>
-                                        {abrirDropdown ===
-                                            item.id_asignatura && (
-                                            <div className="absolute mt-2 bg-white border shadow-md rounded z-10">
-                                                {estados.map((estado) => (
-                                                    <button
-                                                        key={estado.id}
-                                                        onClick={() =>
-                                                            gestionarCambiarEstado(
-                                                                item.id_asignatura,
-                                                                estado.nombre
-                                                            )
-                                                        }
-                                                        className="block w-full px-4 py-2 text-left hover:bg-gray-100"
-                                                    >
-                                                        {estado.nombre}
-                                                    </button>
-                                                ))}
-                                            </div>
-                                        )}
+                                            {nombreEstado(item.nota_asignatura)}
+                                        </span>
+                                        {/* )} */}
                                     </td>
+
                                     {/* realizar test */}
                                     <td className="border border-black p-2 text-sm text-blue-700">
                                         <a
+                                            className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-700 text-xs sm:text-sm"
                                             href={`/cuestionario/${item.id_asignatura}`}
                                         >
                                             Realizar Test
@@ -157,8 +122,7 @@ export default function TablaProgreso({
                                     </td>
                                     <td className="border border-black p-2 text-sm">
                                         <span className="text-gray-400">
-                                            {item.nota_asignatura &&
-                                            item.id_usuario === usuarioActual.id
+                                            {item.nota_asignatura != null
                                                 ? item.nota_asignatura
                                                 : "--"}
                                         </span>

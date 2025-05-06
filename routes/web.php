@@ -41,8 +41,6 @@ Route::get('/recursos', [FormacionController::class, 'mostrarRecursos']);
 
 //
 Route::get('/mostrar-trabajos', [FormacionController::class, 'mostrarTrabajos']);
-//ruta para gestionar cambio de estado
-Route::put('/asignaturas/{idAsignatura}/cambiar-estado', [FormacionController::class, 'cambiarEstado']);
 
 //ruta para detalles formacion
 Route::get('/detalles-formacion/{formacion}', [FormacionController::class, 'mostrarDetalles']);

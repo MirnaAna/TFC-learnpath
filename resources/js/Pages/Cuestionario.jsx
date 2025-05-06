@@ -38,7 +38,9 @@ export default function Cuestionario({ asignatura, preguntas }) {
                                 {pregunta.respuestas.map((respuesta) => (
                                     <li key={respuesta.id}>
                                         <input
+                                            className="mr-5"
                                             type="radio"
+                                            id={respuesta.id}
                                             name={`pregunta-${pregunta.id}`}
                                             value={respuesta.id}
                                             onChange={() =>
@@ -53,7 +55,9 @@ export default function Cuestionario({ asignatura, preguntas }) {
                                                 ] === respuesta.id
                                             }
                                         />
-                                        {respuesta.texto}
+                                        <label for={respuesta.id}>
+                                            {respuesta.texto}
+                                        </label>
                                     </li>
                                 ))}
                             </ul>
