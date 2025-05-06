@@ -38,20 +38,26 @@ class FormacionController extends Controller
     //obteneos los datos de la formacion 
     $formaciones = DB::table('formaciones')->get();
 
+    $idUsuarioActual = auth()->id();
+
     //obtenemos asignaturas para construir la tabla progreso
-    $asignaturasProgreso = DB::table('asignaturas')
+    $asignaturasProgreso = DB::table('resultados')
+      ->join('asignaturas', 'asignaturas.id', '=', 'resultados.id_asignatura')
       ->join('estado_progreso', 'estado_progreso.id', '=', 'asignaturas.id_estado')
       ->select(
         'asignaturas.id as id_asignatura',
         'asignaturas.nombre as nombre_asignatura',
         'asignaturas.descripcion as descripcion_asignatura',
-        'asignaturas.nota as nota_asignatura',
-        'asignaturas.id_usuario as id_usuario',
+        'resultados.puntuacion as nota_asignatura',
+        'resultados.id_usuario as id_usuario',
         'estado_progreso.id as id_estado',
         'estado_progreso.nombre as nombre_estado',
         'estado_progreso.updated_at as actualizado'
       )
+      ->where('resultados.id_usuario', $idUsuarioActual)
+      ->orderBy('asignaturas.id')
       ->get();
+
     //que me devuelva todos los estados
     $estados = DB::table('estado_progreso')
       ->get();
@@ -73,9 +79,22 @@ class FormacionController extends Controller
         ->get();
     }
 
+    // obtenemos asignaturas para construir el chart
     $asignaturaEstado = DB::table('asignaturas')
       ->join('estado_progreso', 'estado_progreso.id', '=', 'asignaturas.id_estado')
-      ->select('asignaturas.id', 'asignaturas.nombre as nombre_asignatura', 'estado_progreso.nombre as nombre_estado')
+      ->join('resultados', 'resultados.id_asignatura', '=', 'asignaturas.id')
+      ->select(
+        'asignaturas.nombre as nombre_asignatura',
+        'resultados.puntuacion as puntuacion',
+        'estado_progreso.nombre as Estado'
+      )
+      ->where('resultados.id_usuario', $idUsuarioActual)
+      // $asignaturaEstado = DB::table('asignaturas')
+      //   ->join('estado_progreso', 'estado_progreso.id', '=', 'asignaturas.id_estado')
+      //   ->select(
+      //     'asignaturas.nombre as nombre_asignatura',
+      //     'estado_progreso.nombre as Estado'
+      //   )
       ->get();
 
     return Inertia::render('Dashboard', [
@@ -84,6 +103,18 @@ class FormacionController extends Controller
       'estados' => $estados,
       'asignaturaEstado' => $asignaturaEstado,
     ]);
+
+    //TODO:
+
+    //1) matricular usuario en todas las asignaturas una vez que se da de alta
+    // optcion A: automaticamente
+    // opcion B: mostrar lista vacia y click en matricular en asignaturas
+
+    //2) Eliminar id_usuario y nota en asignaturas
+
+    //3) add seeder para Resultados
+
+    //4) Hacer que el estado se cambie automaticamente dependiendo de la nota obtenida
   }
 
 

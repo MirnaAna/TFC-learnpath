@@ -7,31 +7,45 @@ import {
     Tooltip,
     CartesianGrid,
     ResponsiveContainer,
+    Cell,
+    Legend,
 } from "recharts";
 
 export default function ChartProgreso({ asignaturaEstado }) {
-    const totalEstados = asignaturaEstado.reduce((acc, asignatura) => {
-        const estado = asignatura.nombre_estado;
-        acc[estado] = (acc[estado] || 0) + 1;
-        return acc;
-    }, {});
-
-    // Convertir a formato para chart
-    const chartData = Object.entries(totalEstados).map(
-        ([estado, contador]) => ({
-            estado,
-            contador,
-        })
-    );
     return (
         <div style={{ width: "100%", height: 400 }}>
-            <ResponsiveContainer>
-                <BarChart data={chartData}>
+            <ResponsiveContainer width="100%" height={700}>
+                <BarChart
+                    layout="vertical"
+                    data={asignaturaEstado}
+                    margin={{ top: 20, right: 30, left: 100, bottom: 5 }}
+                >
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="estado" />
-                    <YAxis allowDecimals={false} />
+                    <XAxis
+                        type="number"
+                        domain={[0, 10]}
+                        ticks={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+                        width={800}
+                    />
+                    <YAxis
+                        dataKey="nombre_asignatura"
+                        type="category"
+                        width={500}
+                    />
                     <Tooltip />
-                    <Bar dataKey="contador" fill="#8884d8" />
+                    <Legend />
+                    <Bar dataKey="puntuacion">
+                        {asignaturaEstado.map((entry, index) => (
+                            <Cell
+                                key={`cell-${index}`}
+                                fill={
+                                    entry.puntuacion <= 4
+                                        ? "#85210b" // color marron
+                                        : "#22c55e" // color verde
+                                }
+                            />
+                        ))}
+                    </Bar>
                 </BarChart>
             </ResponsiveContainer>
         </div>

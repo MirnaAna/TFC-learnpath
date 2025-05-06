@@ -55,7 +55,7 @@ class CuestionarioController extends Controller
         ]);
     }
 
-    //funcion para almacenar las respuestas en el cuestionario
+    //funcion para almacenar los resultados del cuestionario
     function enviarCuestionario(Request $request)
     {
         $respuestas = $request->input('respuestas');
@@ -72,54 +72,28 @@ class CuestionarioController extends Controller
                 $respuestasCorrectas++;
             }
         }
-        $puntuacion = $respuestasCorrectas * 3.333;
 
-        $idAsignaturaExistente = DB::table('resultados')
-            ->select('id_asignatura')
-            ->where('id_asignatura', $idAsignatura)->first();
+        // la puntuacion a cada pregunta depende del numero de preguntas
+        switch ($totalPreguntas) {
+            case 2:
+                $puntuacion = $respuestasCorrectas * 5;
+                break;
+            case 3:
+                $puntuacion = $respuestasCorrectas * 3.333;
+                break;
+            case 4:
+                $puntuacion = $respuestasCorrectas * 2.5;
+                break;
+        }
 
-        $resultadosTotal = DB::table('resultados')
-            ->select('id_asignatura')
-            ->where('id_asignatura', $idAsignatura)->get();
-
-        //obtenemos el existente usuario
-        // $idUsuarioExistente = DB::table('resultados')
-        //     ->where('id_usuario', $idUsuarioActual)
-        //     ->select('id_usuario')->first();
-
-        // $usuarioExiste = $idUsuarioExistente !== null && $idUsuarioExistente->id_usuario == $idUsuarioActual;
-        $resultadoExiste = $resultadosTotal->count() > 0;
-        if ($resultadoExiste) {
-            // dd($resultadoExiste);
-            //actualizamos el resultado de la existente asignatura
-            DB::table('resultados')
-                ->where('id_usuario', $idUsuarioActual)
-                ->where('id_asignatura', $idAsignaturaExistente)
-                ->update([
-                    'puntuacion' => $puntuacion,
-                    'total_preguntas' => $totalPreguntas,
-                    'respuestas_correctas' => $respuestasCorrectas,
-                    'updated_at' => now(),
-                ]);
-        } else { //insertamos resultado para una nueva asignatura
-            DB::table('resultados')->insert([
-                'id_usuario' => $idUsuarioActual,
-                'id_asignatura' => $idAsignatura,
+        // insertamos la puntuacion obtenida junto con el total de preguntas y las respuestas correctas
+        DB::table('resultados')
+            ->where('id_usuario', $idUsuarioActual)
+            ->where('id_asignatura', $idAsignatura)
+            ->update([
                 'puntuacion' => $puntuacion,
                 'total_preguntas' => $totalPreguntas,
                 'respuestas_correctas' => $respuestasCorrectas,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-        }
-
-        // insertamos la nota en la asignatura
-        DB::table('asignaturas')
-            ->where('id_usuario', $idUsuarioActual)
-            ->where('id', $idAsignatura)
-            ->update([
-                'nota' => $puntuacion,
-                'id_usuario' => $idUsuarioActual,
                 'updated_at' => now(),
             ]);
 

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class Respuestas extends Seeder
 {
@@ -15,6 +16,13 @@ class Respuestas extends Seeder
      */
     public function run()
     {
+        // Desabilita chequear foreign key
+        Schema::disableForeignKeyConstraints();
+        // Trunca la tabla para resetear auto-increment ID
+        DB::table('respuestas')->truncate();
+        // Habilita chequear foreign key
+        Schema::enableForeignKeyConstraints();
+
         // Pregunta 1 (¿Qué etiqueta se usa para crear un enlace en HTML?)
         DB::table('respuestas')->insert(
             [

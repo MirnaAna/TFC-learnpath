@@ -98,7 +98,17 @@ export default function TablaProgreso({
                                     </td>
                                     <td className="border border-black p-2 text-sm">
                                         {item.nombre_estado && (
-                                            <span className="text-gray-400">
+                                            <span
+                                                className={
+                                                    item.nombre_estado ===
+                                                    "Aprendido"
+                                                        ? "text-green-400"
+                                                        : item.nombre_estado ===
+                                                          "Mejorar"
+                                                        ? "text-orange-800"
+                                                        : "text-red-400"
+                                                }
+                                            >
                                                 {item.nombre_estado}
                                             </span>
                                         )}

@@ -47,7 +47,7 @@ export default function Recursos({ asignaturas }) {
                                     </td>
                                     <td className="border border-black p-2 text-sm">
                                         {item.nombre && (
-                                            <span className="text-gray-400">
+                                            <span className="text-gray-900">
                                                 {item.nombre}
                                             </span>
                                         )}
@@ -55,7 +55,7 @@ export default function Recursos({ asignaturas }) {
                                     <td className="border border-black p-2 text-sm">
                                         {item.documentacion && (
                                             <a
-                                                className="text-gray-400"
+                                                className="text-blue-600"
                                                 href={item.documentacion}
                                                 target="_blank"
                                             >
@@ -66,7 +66,7 @@ export default function Recursos({ asignaturas }) {
                                     <td className="border border-black p-2 text-sm">
                                         {item.tutorial && (
                                             <a
-                                                className="text-gray-400"
+                                                className="text-blue-600"
                                                 href={item.tutorial}
                                                 target="_blank"
                                             >

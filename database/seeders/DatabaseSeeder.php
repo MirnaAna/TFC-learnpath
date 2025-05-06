@@ -51,5 +51,8 @@ class DatabaseSeeder extends Seeder
         // $this->call([
         //     Respuestas::class,
         // ]);
+        $this->call([
+            Resultados::class,
+        ]);
     }
 }

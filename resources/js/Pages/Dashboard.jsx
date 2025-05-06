@@ -30,7 +30,7 @@ export default function Dashboard() {
             <Header></Header>
             <ToastContainer
                 position="top-center"
-                autoClose={5000}
+                autoClose={3000}
                 closeOnClick={false}
                 draggable={false}
                 pauseOnHover={true}
@@ -54,7 +54,7 @@ export default function Dashboard() {
                     estados={estados}
                 />
             </div>
-            <div>
+            <div className="justify-center px-8 py-4">
                 <ChartProgreso asignaturaEstado={asignaturaEstado} />
             </div>
         </>

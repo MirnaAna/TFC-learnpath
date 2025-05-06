@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class Preguntas extends Seeder
 {
@@ -15,6 +16,12 @@ class Preguntas extends Seeder
      */
     public function run()
     {
+        // Desabilita chequear foreign key
+        Schema::disableForeignKeyConstraints();
+        // Trunca la tabla para resetear auto-increment ID
+        DB::table('preguntas')->truncate();
+        // Habilita chequear foreign key
+        Schema::enableForeignKeyConstraints();
         //lenguaje de marcas
         DB::table('preguntas')->insert(
             [
