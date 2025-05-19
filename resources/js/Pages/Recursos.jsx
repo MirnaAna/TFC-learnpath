@@ -88,7 +88,7 @@ export default function Recursos({ asignaturas }) {
             <Header />
             <div className="p-4 sm:p-6">
                 <h2 className="text-xl sm:text-2xl font-bold text-center mb-6">
-                    Recuesos
+                    Recursos
                 </h2>
                 <div className="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0">
                     {renderTabla("Asignaturas", datosFiltrados)}
