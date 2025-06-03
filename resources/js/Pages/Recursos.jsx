@@ -15,16 +15,16 @@ export default function Recursos({ asignaturas }) {
             filas.push({ id: `vacio-${filas.length}`, nombre: "", estado: "" });
         }
         return (
-            <div className="w-full md:w-1/1 p-2">
-                <div className="overflow-x-auto">
-                    <input
-                        type="text"
-                        placeholder="Filtrar por Asignatura"
-                        value={buscar}
-                        onChange={(e) => setBuscar(e.target.value)}
-                        className="border px-2 py-1 mb-2 w-1/3 text-center"
-                    />
-                    <table className="w-full border border-black shadow-md ">
+            <div className="w-full ">
+                <input
+                    type="text"
+                    placeholder="Filtrar por Asignatura"
+                    value={buscar}
+                    onChange={(e) => setBuscar(e.target.value)}
+                    className="border border-gray-300 px-4 py-2 mb-4 w-full max-w-md mx-auto block rounded shadow-sm focus:outline-none focus:ring focus:border-blue-400"
+                />
+                <div className="overflow-x-auto rounded shadow-lg">
+                    <table className="min-w-full border text-sm sm:text-base text-center ">
                         <thead>
                             <tr className="bg-black text-white text-sm">
                                 <th className="border border-black p-2">#</th>
@@ -52,25 +52,29 @@ export default function Recursos({ asignaturas }) {
                                             </span>
                                         )}
                                     </td>
-                                    <td className="border border-black p-2 text-sm">
+                                    <td className="border border-black p-2 text-sm max-w-xs truncate">
                                         {item.documentacion && (
                                             <a
-                                                className="text-blue-600"
+                                                className="text-blue-600 underline hover:text-blue-800"
                                                 href={item.documentacion}
                                                 target="_blank"
+                                                rel="noopener noreferrer"
+                                                title={item.documentacion} // muestra url completa al pasar el mouse
                                             >
-                                                {item.documentacion}
+                                                Ver doc
                                             </a>
                                         )}
                                     </td>
-                                    <td className="border border-black p-2 text-sm">
+                                    <td className="border border-black p-2 text-sm max-w-xs truncate">
                                         {item.tutorial && (
                                             <a
-                                                className="text-blue-600"
+                                                className="text-blue-600 underline hover:text-blue-800"
                                                 href={item.tutorial}
                                                 target="_blank"
+                                                rel="noopener noreferrer"
+                                                title={item.tutorial}
                                             >
-                                                {item.tutorial}
+                                                Tutorial
                                             </a>
                                         )}
                                     </td>
@@ -86,11 +90,11 @@ export default function Recursos({ asignaturas }) {
         <>
             <Head title="Recursos" />
             <Header />
-            <div className="p-4 sm:p-6">
-                <h2 className="text-xl sm:text-2xl font-bold text-center mb-6">
+            <div className="px-4 py-8 max-w-7xl mx-auto">
+                <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
                     Recursos
                 </h2>
-                <div className="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0">
+                <div className="flex flex-col space-y-6">
                     {renderTabla("Asignaturas", datosFiltrados)}
                 </div>
             </div>

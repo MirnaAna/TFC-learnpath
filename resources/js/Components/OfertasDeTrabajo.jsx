@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { FaBriefcase, FaSpinner } from "react-icons/fa";
 
 export default function OfertasDeTrabajo() {
     const [trabajos, setTrabajos] = useState([]);
@@ -11,52 +12,58 @@ export default function OfertasDeTrabajo() {
                 const respuesta = await axios.get("/api/api-trabajos");
                 setTrabajos(respuesta.data);
             } catch (error) {
-                console.error("error al mostrar trabajos", error);
+                console.error("Error al mostrar trabajos", error);
             } finally {
                 setCargando(false);
             }
         }
 
         obtenerTrabajos();
-    });
+    }, []);
 
     return (
-        <section className=" bg-white text-gray-800 shadow-2xl rounded-2xl p-8 mt-10 max-w-5xl w-full text-center animate-slide-up">
-            <h2 className="text-2xl font-bold text-center mb-8">
-                Ofertas de trabajo
+        <section className="min-h-screen bg-gradient-to-br from-purple-400 to-blue-100 py-12 px-4 flex flex-col items-center">
+            <h2 className="text-4xl font-bold text-white mb-10 text-center">
+                Ofertas de Trabajo
             </h2>
-            {cargando ? (
-                <p className="text-center text-gray-700 text-lg">
-                    Cargando ofertas...
-                </p>
-            ) : trabajos.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {trabajos.map((trabajo, index) => (
-                        <div
-                            key={index}
-                            className="bg-gray-100 shadow-md p-6 rounded-xl flex-col items-center hover:scale-105 transition-transform"
-                        >
-                            <h3 className="text-xl font-bold text-purple-700 mb-2">
-                                {trabajo.position}
-                            </h3>
-                            <p className="text-gray-600 font-medium mb-4">
-                                {trabajo.company}
-                            </p>
-                            <a
-                                href={trabajo.url}
-                                target="_blank"
-                                className="bg-yellow-400 text-gray-900 font-semibold px-4 py-2 rounded-xl hover:bg-yellow-500 transition-colors"
+            <div className="max-w-6xl w-full">
+                {cargando ? (
+                    <div className="flex justify-center items-center text-white text-lg font-semibold animate-pulse">
+                        <FaSpinner className="animate-spin mr-2" />
+                        Cargando ofertas...
+                    </div>
+                ) : trabajos.length > 0 ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {trabajos.map((trabajo, index) => (
+                            <div
+                                key={index}
+                                className="bg-white text-gray-800 shadow-lg rounded-xl p-6 flex flex-col justify-between hover:shadow-xl hover:scale-[1.03] transition-transform"
                             >
-                                Ver oferta
-                            </a>
-                        </div>
-                    ))}
-                </div>
-            ) : (
-                <p className="text-center text-gray-500 text.lg">
-                    No hay trabajos disponibles
-                </p>
-            )}
+                                <div>
+                                    <h3 className="text-xl font-bold text-purple-700 mb-1">
+                                        {trabajo.position}
+                                    </h3>
+                                    <p className="text-gray-600 font-medium mb-4">
+                                        {trabajo.company}
+                                    </p>
+                                </div>
+                                <a
+                                    href={trabajo.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="mt-auto bg-yellow-400 text-gray-900 font-semibold px-4 py-2 rounded-xl text-center hover:bg-yellow-500 transition-colors"
+                                >
+                                    Ver oferta
+                                </a>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <p className="text-center text-white text-lg mt-4">
+                        No hay trabajos disponibles en este momento.
+                    </p>
+                )}
+            </div>
         </section>
     );
 }

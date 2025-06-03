@@ -14,7 +14,7 @@ export default function SelectFormacion({ formaciones }) {
         }
     }
     return (
-        <div className="flex items-center">
+        <div className="flex flex-col md:flex-row gap-4 items-center w-full max-w-xl p-4 bg-white rounded shadow-md">
             <label className=" border-2 bg-fuchsia-500 text-white font-semibold py-2 px-4 rounded">
                 Selecciona tu formación
             </label>
