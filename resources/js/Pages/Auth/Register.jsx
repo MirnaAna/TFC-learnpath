@@ -42,11 +42,13 @@ export default function Register() {
             <div className="min-h-screen flex items-center justify bg-gradient-to-br from-blue-50 to-ble flex">
                 {/*logo*/}
                 <div className=" flex items-center justify-center ">
-                    <img
-                        src={Logo}
-                        alt="LearnPath Logo"
-                        className="w-80 h-auto"
-                    />
+                    <Link href="/" className="flex items-center">
+                        <img
+                            src={Logo}
+                            alt="LearnPath Logo"
+                            className="w-80 h-auto"
+                        />
+                    </Link>
                 </div>
                 {/*contenedor del formulario*/}
                 <div className="flex items-center justify-center bg-blue-100 shadow-lg rounded-lg p-10 w-full max-w-lg mr-4">

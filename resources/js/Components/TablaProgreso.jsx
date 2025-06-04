@@ -140,27 +140,6 @@ export default function TablaProgreso({ asignaturasProgreso, formaciones }) {
             <h2 className="text-xl sm:text-2xl font-bold text-center mb-6">
                 Mi Progreso
             </h2>
-            <div className="w-1/2 mx-auto p-6">
-                {/* <SelectFormacion formaciones={formaciones} /> */}
-
-                <select
-                    id="formation-select"
-                    className="border-2 border-gray-500 p-2 rounded w-64 text-left bg-slate-300"
-                    value={formacionSeleccionada}
-                    onChange={(e) =>
-                        gestionarFormacionSelecionada(e.target.value)
-                    }
-                >
-                    <option value="" disabled hidden>
-                        --selecciona una formacion--
-                    </option>
-                    {formaciones.map((formacion, index) => (
-                        <option key={index} value={formacion.abreviatura}>
-                            {formacion.abreviatura}
-                        </option>
-                    ))}
-                </select>
-            </div>
             <div className="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0">
                 {renderTabla("Asignaturas", datosFiltrados)}
             </div>

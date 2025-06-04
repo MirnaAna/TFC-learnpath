@@ -58,7 +58,7 @@ class FormacionController extends Controller
   function mostrarDashboard(Request $request)
   {
     $this->asignarUsuarioAsignaturas();
-    //obteneos los datos de la formacion 
+    //obtenemos los datos de la formacion 
     $formaciones = DB::table('formaciones')->get();
 
     $idUsuarioActual = auth()->id();
@@ -102,7 +102,7 @@ class FormacionController extends Controller
         ->get();
     }
 
-    // obtenemos asignaturas para construir el chart
+    // obtenemos asignaturas para construir el chart  
     $asignaturaEstado = DB::table('asignaturas')
       ->join('estado_progreso', 'estado_progreso.id', '=', 'asignaturas.id_estado')
       ->join('resultados', 'resultados.id_asignatura', '=', 'asignaturas.id')

@@ -84,6 +84,9 @@ class CuestionarioController extends Controller
             case 4:
                 $puntuacion = $respuestasCorrectas * 2.5;
                 break;
+            default:
+                $puntuacion = 0;
+                break;
         }
 
         // insertamos la puntuacion obtenida junto con el total de preguntas y las respuestas correctas
