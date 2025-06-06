@@ -68,8 +68,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 PASOS PARA CORRER ESTE PROYECTO
 -Una vez que clonas el repositorio, te ubicas al directorio raiz, lanzamos Apache y MySQL (en mi caso desde XAMPP)
 -Primero generamos una key de nuestra aplicacion para laravel
-
--   php artisan key:generate
+php artisan key:generate
 
 -Ejecutamos los siguiente comandos para instalar las librerias y los paquetes.
 
@@ -88,4 +87,5 @@ Lanzamos Laravel
 
 -   php artisan serve
     Lanzamos React con Vite
--   npm run dev Luego vamos a localhost:8000 en el navegador y tendremos el proyecto corriendo
+-   npm run dev  
+    Luego vamos a localhost:8000 en el navegador y tendremos el proyecto corriendo
