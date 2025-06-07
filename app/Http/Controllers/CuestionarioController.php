@@ -10,6 +10,7 @@ class CuestionarioController extends Controller
 {
     function mostrarCuestionario($idAsignatura)
     {
+        //consulta las preguntas y sus respuestas asociadas a una asignatura
         $preguntasConsulta = DB::table('preguntas')
             ->join('respuestas', 'preguntas.id', '=', 'respuestas.id_pregunta')
             ->select(
@@ -22,9 +23,9 @@ class CuestionarioController extends Controller
             ->where('id_asignatura', $idAsignatura)
             ->orderBy('preguntas.id')
             ->get();
-
+        //almena las preguntas y sus respuestas
         $preguntas = [];
-
+        //agrupa las respuestas con suasignatura
         foreach ($preguntasConsulta as $pregunta) {
             $id = $pregunta->id_pregunta;
             if (!isset($preguntas[$id])) {
@@ -34,6 +35,7 @@ class CuestionarioController extends Controller
                     'respuestas' => []
                 ];
             }
+            // Añade la respuesta a la lista de respuestas de esa pregunta
             $preguntas[$id]['respuestas'][] = [
                 'id' => $pregunta->id_respuesta,
                 'texto' => $pregunta->texto_respuesta,
@@ -58,8 +60,10 @@ class CuestionarioController extends Controller
     //funcion para almacenar los resultados del cuestionario
     function enviarCuestionario(Request $request)
     {
+        //obtiene las respuestas seleccionadas y el ID de la asignatura
         $respuestas = $request->input('respuestas');
         $idAsignatura = $request->input('id_asignatura');
+        //obtiene el ID del usuario autenticado
         $idUsuarioActual = auth()->id();
 
         $totalPreguntas = count($respuestas);

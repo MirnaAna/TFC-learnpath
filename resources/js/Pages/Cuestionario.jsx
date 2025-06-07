@@ -4,19 +4,21 @@ import Header from "../Components/Header";
 import { Inertia } from "@inertiajs/inertia";
 
 export default function Cuestionario({ asignatura, preguntas }) {
+    // Estado para almacenar las respuestas seleccionadas por el usuario
     const [respuestasMarcadas, setRespuestasMarcadas] = useState({});
+    // Función que se ejecuta cada vez que se selecciona una respuesta
     const gestionarRespuestaMarcada = (idPregunta, idRespuesta) => {
         setRespuestasMarcadas((prev) => ({
             ...prev,
-            [idPregunta]: idRespuesta,
+            [idPregunta]: idRespuesta, // se actualiza o agrega la respuesta actual
         }));
     };
 
     const enviarCuestionario = () => {
-        // enviamos los resultados del cuestionario al backend
+        // Función que envía las respuestas al backend mediante una solicitud PUT
         Inertia.put("/enviar-cuestionario", {
-            respuestas: respuestasMarcadas,
-            id_asignatura: asignatura.id,
+            respuestas: respuestasMarcadas, //respuestas seleccionadas
+            id_asignatura: asignatura.id, //identificador de la asignatura
         });
     };
 

@@ -5,7 +5,7 @@ import Header from "../Components/Header";
 export default function Trabajos() {
     return (
         <>
-            <Head title="formaciones" />
+            <Head title="trabajos" />
             <Header />
             <OfertasDeTrabajo />
         </>

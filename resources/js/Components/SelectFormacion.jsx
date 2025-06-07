@@ -7,6 +7,7 @@ export default function SelectFormacion({ formaciones }) {
     function gestionarRedireccionFormacion() {
         if (formacionSeleccionada != "") {
             Inertia.visit(
+                // Si hay una formación seleccionada, redirigimos a su página de detalles con Inertia
                 `/detalles-formacion/${formacionSeleccionada.toLocaleUpperCase()}`
             );
         } else {
@@ -27,6 +28,7 @@ export default function SelectFormacion({ formaciones }) {
                 <option value="" disabled hidden>
                     --selecciona una formacion--
                 </option>
+                {/* Recorre las formaciones pasadas por props y crea una opción por cada una */}
                 {formaciones.map((formacion, index) => (
                     <option key={index} value={formacion.abreviatura}>
                         {formacion.abreviatura}

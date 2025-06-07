@@ -8,6 +8,7 @@ import { Link } from "@inertiajs/react";
 export default function TablaProgreso({ asignaturasProgreso, formaciones }) {
     const { url } = usePage();
     const [buscar, setBuscar] = useState("");
+    // Filtra las asignaturas por nombre o estado
     const datosFiltrados = asignaturasProgreso.filter((item) =>
         `${item.nombre_asignatura} ${nombreEstado(item.nota_asignatura)}`
             .toLowerCase()
@@ -22,7 +23,7 @@ export default function TablaProgreso({ asignaturasProgreso, formaciones }) {
         setFormacionSeleccionada(idFormacion);
         if (idFormacion) {
             Inertia.get(
-                `${route().t.url}${url}`,
+                `${route().t.url}${url}`, // Redirige a la misma URL pero con nueva formación
                 { nuevaFormacionSeleccionada: idFormacion },
                 {
                     preserveState: true,
@@ -44,15 +45,17 @@ export default function TablaProgreso({ asignaturasProgreso, formaciones }) {
             return "Aprendido";
         }
     }
-
+    //para renderizar la tabla de asignaturas con su estado, test y nota
     const renderTabla = (titulo, data) => {
         const filas = [...data];
+        // Rellena filas vacías si hay menos de 10
         while (filas.length < 10) {
             filas.push({ id: `vacio-${filas.length}`, nombre: "", estado: "" });
         }
         return (
             <div className="w-full md:w-1/1 p-2">
                 <div className="overflow-x-auto">
+                    {/* Input para filtrar por nombre o estado */}
                     <input
                         type="text"
                         placeholder="Filtrar por Asignatura o Estado"
@@ -60,6 +63,7 @@ export default function TablaProgreso({ asignaturasProgreso, formaciones }) {
                         onChange={(e) => setBuscar(e.target.value)}
                         className="border px-2 py-1 mb-2 w-1/3 text-center"
                     />
+                    {/* Tabla principal */}
                     <table className="w-full border border-black shadow-md ">
                         <thead>
                             <tr className="bg-black text-white text-sm">
@@ -79,6 +83,7 @@ export default function TablaProgreso({ asignaturasProgreso, formaciones }) {
                             </tr>
                         </thead>
                         <tbody>
+                            {/* para datos filtrados y genera una fila por asignatura */}
                             {datosFiltrados.map((item, index) => (
                                 <tr key={index} className="text-center">
                                     <td className="border border-black p-2">
@@ -91,8 +96,8 @@ export default function TablaProgreso({ asignaturasProgreso, formaciones }) {
                                             </span>
                                         )}
                                     </td>
+                                    {/* muestra el estado en texto y con color según la nota */}
                                     <td className="border border-black p-2 text-sm">
-                                        {/* {item.nombre_estado && ( */}
                                         <span
                                             className={
                                                 nombreEstado(
@@ -140,6 +145,7 @@ export default function TablaProgreso({ asignaturasProgreso, formaciones }) {
             <h2 className="text-xl sm:text-2xl font-bold text-center mb-6">
                 Mi Progreso
             </h2>
+            {/* Renderiza la tabla usando los datos filtrados */}
             <div className="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0">
                 {renderTabla("Asignaturas", datosFiltrados)}
             </div>

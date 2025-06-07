@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "axios"; // cliente http para hacer peticiones a APIS
 import { FaBriefcase, FaSpinner } from "react-icons/fa";
 
 export default function OfertasDeTrabajo() {
@@ -7,6 +7,7 @@ export default function OfertasDeTrabajo() {
     const [cargando, setCargando] = useState(true);
 
     useEffect(() => {
+        // Función asincrónica para obtener trabajos desde la API
         async function obtenerTrabajos() {
             try {
                 const respuesta = await axios.get("/api/api-trabajos");
